@@ -1,0 +1,22 @@
+<h3>Create a Photo</h3>
+<form>
+<input type="hidden"
+       name="authenticity_token"
+       value="<%= $('meta[name="csrf-token"]').attr('content') %>">
+
+  <label id="photo_title">Title</label>
+  <input
+    type="text"
+    id="photo_title"
+    name="photo[title]">
+
+    <label id="photo_url">Url</label>
+    <input
+      type="text"
+      id="photo_url"
+      name="photo[url]">
+
+    <input type="hidden" name="photo[owner_id]" value="<%= CURRENT_USER_ID %>">
+
+    <input type="submit" value="Create">
+</form>
