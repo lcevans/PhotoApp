@@ -3,7 +3,7 @@
 
   var PhotoFormView = PT.PhotoFormView = function () {
     this.$el = $("<div></div>");
-    this.$el.on("submit", this.submit);
+    this.$el.on("submit", this.submit.bind(this));
 
   }
 

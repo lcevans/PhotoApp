@@ -1,8 +1,5 @@
 class Api::PhotosController < ApplicationController
   def create
-    p "***************"
-    p params[:attr]
-    p "****************"
     @photo = Photo.new(params[:attr])
 
     begin

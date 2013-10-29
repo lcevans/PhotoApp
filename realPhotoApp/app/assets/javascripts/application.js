@@ -1,14 +1,3 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// the compiled file.
-//
-// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
-// GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
 //= require jquery_ujs
@@ -23,14 +12,20 @@
 
   PT.initialize = function(){
     console.log("initializing");
-    PT.Photo.fetchByUserId(CURRENT_USER_ID, function(){
+    PT.Photo.fetchByUserId(CURRENT_USER_ID, PT.showPhotosIndex);
+  }
 
-      var photosListView = new PT.PhotosListView();
-      $('div#content').append(photosListView.render().$el);
+  PT.showPhotosIndex = function () {
+    var photosListView = new PT.PhotosListView();
+    $('div#content').html(photosListView.render().$el);
 
-      var photoFormView = new PT.PhotoFormView();
-      $('div#content').append(photoFormView.render().$el);
-    });
+    var photoFormView = new PT.PhotoFormView();
+    $('div#content').append(photoFormView.render().$el);
+  }
+
+  PT.showPhotoDetail = function (photo) {
+    var photosDetailView = new PT.PhotosDetailView(photo);
+    $('div#content').html(photosDetailView.render().$el);
   }
 
 })(this);

@@ -22,12 +22,22 @@ Photo.on = function(eventName, callback){
 }
 
 Photo.trigger = function(eventName){
-  console.log(Photo._events);
   Photo._events[eventName].forEach(function(callback){
     callback();
   });
 }
 
+Photo.find = function (id, callback) {
+  $.ajax({
+    url: "/api/photos/" + id + ".json",
+    method: "GET",
+    success: function (photo_attr) {
+      var foundPhoto = new Photo(photo_attr);
+      callback(foundPhoto);
+    },
+    error: function () {alert("find error");}
+  });
+}
 
 
 Photo.prototype.save = function (callback) {
@@ -37,10 +47,10 @@ Photo.prototype.save = function (callback) {
       url: "/api/photos.json",
       method: "POST",
       data: {attr: that.attr},
-      success: function (photo) {
-        _.extend(that.attr, photo);
+      success: function (photo_attr) {
+        _.extend(that.attr, photo_attr);
         callback(that);
-        Photo.all.push(new Photo(photo));
+        Photo.all.push(new Photo(photo_attr));
         Photo.trigger("add");
       },
       error: function () {
